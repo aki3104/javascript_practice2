@@ -1,0 +1,17 @@
+h4{
+  margin: 30px 40px 0px 0px;
+  display:inline-block;
+}
+
+#result{
+  margin-bottom:20px;
+}
+
+#result p{
+  width:100px;
+  margin:0;
+  display:inline-block;
+}
+#result button{
+  margin-left:20px;
+}
