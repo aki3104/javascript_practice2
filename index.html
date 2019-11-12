@@ -10,14 +10,22 @@
   <label><input type = 'radio' name = 'ToDo' checked>すべて</label>
   <label><input type = 'radio' name = 'ToDo'>作業中</label>
   <label><input type = 'radio' name = 'ToDo'>完了</label>
-  <div>
-    <h4>IDコメント</h4>
-    <h4>状態</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>コメント</th>
+        <th>状態</th>
+      </tr>
+    </thead>
+    <tbody id = 'result'>
+    </tbody>
+  </table>
+  <div id = 'add_task'>
+    <h3>新規タスクの追加</h3>
+    <input type='text' id = 'task'>
+    <button id ='action' >追加</button>
   </div>
-  <div id = 'result'>
-  </div> 
-  <input type='text' id = 'task' >
-  <button id ='action' >追加</button>
   <script src="js/main.js"></script>
 </body>
 </html>
