@@ -22,15 +22,14 @@ action.addEventListener('click',()=>{
   td2.textContent = tasks[tasks.length-1];
   tr.appendChild(td2);
 
-  //ボタンの作成
   const td3 = document.createElement('td');
   td3.textContent = '作業中'
-  td3.setAttribute = ('class', 'btn');
+  td3.className = 'btn';
   tr.appendChild(td3);
 
   const BtnDel = document.createElement('button');
   tr.appendChild(BtnDel);
   BtnDel.textContent = '削除'
-  console.log(tasks);
-  })
+
+})
 
