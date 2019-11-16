@@ -7,9 +7,11 @@
     <h1>ToDoリスト</h1>
 </head>
 <body>
-  <label><input type = 'radio' name = 'ToDo' checked>すべて</label>
-  <label><input type = 'radio' name = 'ToDo'>作業中</label>
-  <label><input type = 'radio' name = 'ToDo'>完了</label>
+  <form id = ToDo_St>
+    <label><input type = 'radio' name = 'ToDo' onclick="radioselect()" checked >すべて</label>
+    <label><input type = 'radio' name = 'ToDo' onclick="radioselect()">作業中</label>
+    <label><input type = 'radio' name = 'ToDo' onclick="radioselect()">完了</label>
+  </form>
   <table>
     <thead>
       <tr>
