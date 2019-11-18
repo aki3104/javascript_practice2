@@ -1,56 +1,68 @@
 'usre strict';
 
 // 要件定義
-const Task = document.getElementById('task');
+const task = document.getElementById('task');
 const action = document.getElementById('action');
 const result = document.getElementById('result');
 const tasks = [];
 
 
 // クリックイベント
-action.addEventListener('click',()=>{
-  tasks.push(Task.value);
-  Task.value = "";
+action.addEventListener('click',() => {
+
+    //ステータスボタン生成
+    const createStatusBtn = ()　=>　{
+      const idTdSta = document.createElement('td');
+      tr.appendChild(idTdSta);
+      idTdSta.parentNode.className = 'trWrk';
+      const idTdStaBtn = document.createElement('button');
+      idTdSta.appendChild(idTdStaBtn);
+      idTdStaBtn.textContent = '作業中'
+      return idTdStaBtn;
+    };  
+
+    //削除ボタンの生成
+    const createDeleteBtn = () => {
+      const btnDel = document.createElement('button');
+      btnDel.textContent = '削除'
+      return tr.appendChild(btnDel);
+    };
+
+  tasks.push(task.value);
+  task.value = "";
 
   const tr = document.createElement('tr');
   result.appendChild(tr);
 
-  const td1 = document.createElement('td');
-  td1.textContent =  tasks.length-1;
-  tr.appendChild(td1);
+  const idTdIndex = document.createElement('td');
+  idTdIndex.textContent =  tasks.length - 1;
+  tr.appendChild(idTdIndex);
 
-  const td2 = document.createElement('td');
-  td2.textContent = tasks[tasks.length-1];
-  tr.appendChild(td2);
+  const idTdTask = document.createElement('td');
+  idTdTask.textContent = tasks[tasks.length - 1];
+  tr.appendChild(idTdTask);
 
   //ステータスボタン作成、クリック動作
-  const td3 = document.createElement('td');
-  td3.textContent = '作業中'
-  td3.className = 'btn';
-  tr.appendChild(td3);
-  td3.parentNode.className = 'trWrk';
-  td3.addEventListener('click',()=>{
-    if (td3.textContent === '作業中'){
-      td3.textContent = '完了'
-      td3.parentNode.className = 'trComp'
-    }else{
-      td3.textContent = '作業中'
-      td3.parentNode.className = 'trWrk'
-    }
-  })
+  createStatusBtn();
+  // idTdStaBtn.addEventListener('click',()=>{
+  //   if (idTdStaBtn.textContent === '作業中'){
+  //     idTdStaBtn.textContent = '完了'
+  //     idTdStaBtn.parentNode.className = 'trComp'
+  //   }else{
+  //     idTdStaBtn.textContent = '作業中'
+  //     idTdStaBtn.parentNode.className = 'trWrk'
+  //   }
+  // })
 
   //削除ボタン作成、クリック動作
-  const btnDel = document.createElement('button');
-  tr.appendChild(btnDel);
-  btnDel.textContent = '削除'
-  btnDel.addEventListener('click',()=>{
-    btnDel.parentNode.textContent = ""
+  createDeleteBtn().addEventListener('click',() => {
+    // createDeleteBtn().parentNode = ""
   })
 
 })
 
 // ラジオボタン選択
-const radioselect = ()=>{
+const radioselect = () => {
   const work = document.querySelectorAll('input[type="radio"]')[1].checked;
   const comp = document.querySelectorAll('input[type="radio"]')[2].checked;
 
@@ -61,12 +73,12 @@ const radioselect = ()=>{
 
     if(work === true){
       //完了を非表示
-        document.querySelectorAll('tr.trComp').forEach(trComp=>{
+        document.querySelectorAll('tr.trComp').forEach(trComp => {
           trComp.style.display = 'none';
         })
     }else if(comp === true){
       //作業中を非表示
-      document.querySelectorAll('tr.trWrk').forEach(trWrk=>{
+      document.querySelectorAll('tr.trWrk').forEach(trWrk => {
         trWrk.style.display = 'none';
       })
     }else{
