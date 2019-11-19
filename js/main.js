@@ -6,27 +6,36 @@ const action = document.getElementById('action');
 const result = document.getElementById('result');
 const tasks = [];
 
+//削除ボタンの生成
+const createDeleteBtn = () => {
+  const btnDel = document.createElement('button');
+  btnDel.textContent = '削除'
+  return btnDel;
+}
+
+//ステータスボタン生成
+const createStatusBtn = (trElem)　=>　{
+  const idTdSta = document.createElement('td');
+  trElem.appendChild(idTdSta);
+  const idTdStaBtn = document.createElement('button');
+  idTdSta.appendChild(idTdStaBtn);
+  idTdSta.parentNode.className = 'trWrk';
+  idTdStaBtn.textContent = '作業中'
+
+  idTdStaBtn.addEventListener('click',()=>{
+    if (idTdStaBtn.textContent === '作業中'){
+      idTdStaBtn.textContent = '完了'
+      idTdSta.parentNode.className = 'trComp'
+    }else{
+      idTdStaBtn.textContent = '作業中'
+      idTdSta.parentNode.className = 'trWrk'
+    }
+    })
+    };
+
 
 // クリックイベント
 action.addEventListener('click',() => {
-
-    //ステータスボタン生成
-    const createStatusBtn = ()　=>　{
-      const idTdSta = document.createElement('td');
-      tr.appendChild(idTdSta);
-      idTdSta.parentNode.className = 'trWrk';
-      const idTdStaBtn = document.createElement('button');
-      idTdSta.appendChild(idTdStaBtn);
-      idTdStaBtn.textContent = '作業中'
-      return idTdStaBtn;
-    };  
-
-    //削除ボタンの生成
-    const createDeleteBtn = () => {
-      const btnDel = document.createElement('button');
-      btnDel.textContent = '削除'
-      return tr.appendChild(btnDel);
-    };
 
   tasks.push(task.value);
   task.value = "";
@@ -42,23 +51,15 @@ action.addEventListener('click',() => {
   idTdTask.textContent = tasks[tasks.length - 1];
   tr.appendChild(idTdTask);
 
-  //ステータスボタン作成、クリック動作
-  createStatusBtn();
-  // idTdStaBtn.addEventListener('click',()=>{
-  //   if (idTdStaBtn.textContent === '作業中'){
-  //     idTdStaBtn.textContent = '完了'
-  //     idTdStaBtn.parentNode.className = 'trComp'
-  //   }else{
-  //     idTdStaBtn.textContent = '作業中'
-  //     idTdStaBtn.parentNode.className = 'trWrk'
-  //   }
-  // })
+  //ステータスボタンクリック動作
+  createStatusBtn(tr);
 
-  //削除ボタン作成、クリック動作
-  createDeleteBtn().addEventListener('click',() => {
-    // createDeleteBtn().parentNode = ""
+  //削除ボタンクリック動作
+  const delBtn = createDeleteBtn();
+  tr.appendChild(delBtn);
+  delBtn.addEventListener('click',() => {
+    delBtn.parentNode.textContent = ""
   })
-
 })
 
 // ラジオボタン選択
@@ -88,4 +89,4 @@ const radioselect = () => {
       })
 
     }
-}
+  }
