@@ -30,8 +30,8 @@ const createStatusBtn = (trElem)　=>　{
       idTdStaBtn.textContent = '作業中'
       idTdSta.parentNode.className = 'trWrk'
     }
-    })
-    };
+  })
+};
 
 
 // クリックイベント
@@ -72,21 +72,21 @@ const radioselect = () => {
     trAll.style.display = ''
   })
 
-    if(work === true){
-      //完了を非表示
-        document.querySelectorAll('tr.trComp').forEach(trComp => {
-          trComp.style.display = 'none';
-        })
-    }else if(comp === true){
-      //作業中を非表示
-      document.querySelectorAll('tr.trWrk').forEach(trWrk => {
-        trWrk.style.display = 'none';
+  if(work === true){
+    //完了を非表示
+      document.querySelectorAll('tr.trComp').forEach(trComp => {
+        trComp.style.display = 'none';
       })
-    }else{
-      //非表示を全て表示に
-      document.querySelectorAll('tr').forEach(trAll => {
-        trAll.style.display = ''
-      })
+  }else if(comp === true){
+    //作業中を非表示
+    document.querySelectorAll('tr.trWrk').forEach(trWrk => {
+      trWrk.style.display = 'none';
+    })
+  }else{
+    //非表示を全て表示に
+    document.querySelectorAll('tr').forEach(trAll => {
+      trAll.style.display = ''
+    })
 
-    }
   }
+}
