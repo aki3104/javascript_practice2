@@ -20,19 +20,16 @@ const createStatusBtn = (trElem)　=>　{
   trElem.appendChild(idTdSta);
   const idTdStaBtn = document.createElement('button');
   idTdSta.appendChild(idTdStaBtn);
-  idTdSta.parentNode.className = 'trWrk';
   idTdStaBtn.textContent = '作業中'
 
   idTdStaBtn.addEventListener('click',()=>{
     if (idTdStaBtn.textContent === '作業中'){
       idTdStaBtn.textContent = '完了'
-      idTdSta.parentNode.className = 'trComp'
     }else{
       idTdStaBtn.textContent = '作業中'
-      idTdSta.parentNode.className = 'trWrk'
     }
-    })
-    };
+  })
+};
 
 
 // クリックイベント
@@ -45,154 +42,83 @@ action.addEventListener('click',() => {
 
   todos.push(todo);
   inputTask.value = "";
-
-  // todo表示ようのtr要素を生成
-    const taskElement = document.createElement('tr');
-
-    //ID表示ようのtd要素を生成
-    const idElement = document.createElement('td');
-    const taskId = filteredTodos.id;
-    idElement.textContent = taskId;
-
-    //task表示用td要素を生成
-    const commentElement = document.createElement('td');
-    commentElement.textContent = filteredTodos.task;
-
-    //statusBtn表示用td要素を生成
-    const statusBtnElement = document.createElement('td');
-    const statusBtn = createStatusBtn(taskId - 1);
-    statusBtnElement.appendChild(statusBtn);
-
-    //deleteBtn表示用td要素を生成
-    const removeBtnElement = document.createElement('td');
-    const removeBtn = createRrmoveBtn(taskId - 1);
-    removeBtnElement.appendChild(removeBtn);
-
-    //生成したtdをtrにセット
-    taskElement.appendChild(idElement);
-    taskElement.appendChild(commentElement);
-    taskElement.appendChild(statusBtnElement);
-    taskElement.appendChild(removeBtnElement);
-    
-    todoList.appendChild(taskElement);
+  console.log(todos);
+  displayTodos();
 });
 
+const displayTodos = () => {
 
-//   // const tr = document.createElement('tr');
-//   // result.appendChild(tr);
+  //初期化
+  result.textContent = '';
 
-//   // const idTdIndex = document.createElement('td');
-//   // idTdIndex.textContent =  todos.length - 1;
-//   // tr.appendChild(idTdIndex);
+  todos.forEach((todo, index ) => {
+    // todo表示ようのtr要素を生成
+      const taskElement = document.createElement('tr');
+      result.appendChild(taskElement);
 
-//   // const idTdTask = document.createElement('td');
-//   // idTdTask.textContent = todos[todos.length - 1];
-//   // tr.appendChild(idTdTask);
+      //ID表示ようのtd要素を生成
+      const idElement = document.createElement('td');
+      const taskId = todo.index;
+      idElement.textContent = taskId;
 
-//   // //ステータスボタンクリック動作
-//   // createStatusBtn(tr);
+      //task表示用td要素を生成
+      const commentElement = document.createElement('td');
+      commentElement.textContent = todo.value;
 
-//   // //削除ボタンクリック動作
-//   // const delBtn = createDeleteBtn();
-//   // tr.appendChild(delBtn);
-//   // delBtn.addEventListener('click',() => {
-//   //   delBtn.parentNode.textContent = ""
-//   // })
 
-// // const displyaTodos = radioType => {
 
-// //   //選択されているラジオボタンに応じてtodosをフィルタリング
-// //   const filteredTodos = Todos(radioType);
+      //deleteBtn表示用td要素を生成
+      const delBtn = createDeleteBtn();
+      
+      // delBtn.addEventListener('click',() => {
+      //   delBtn.parentNode.textContent = ""
+      // });
 
-// //   //tbodyタグを取得
-// //   const result = document.getElementById('result');
+      //生成したtdをtrにセット
+      taskElement.appendChild(idElement);
+      taskElement.appendChild(commentElement);
+      createStatusBtn(taskElement);
+      taskElement.appendChild(delBtn);
+  });
+}
 
-// //   //初期化
-// //   result.textContent = '';
-
-// //   filteredTodos.forEach((filteredTodos, index ) => {
-// //     //todo表示ようのtr要素を生成
-// //     const taskElement = document.createElement('tr');
-
-// //     //ID表示ようのtd要素を生成
-// //     const idElement = document.createElement('td');
-// //     const taskId = filteredTodos.id;
-// //     idElement.textContent = taskId;
-
-// //     //task表示用td要素を生成
-// //     const commentElement = document.createElement('td');
-// //     commentElement.textContent = filteredTodos.task;
-
-// //     //statusBtn表示用td要素を生成
-// //     const statusBtnElement = document.createElement('td');
-// //     const statusBtn = createStatusBtn(taskId - 1);
-// //     statusBtnElement.appendChild(statusBtn);
-
-// //     //deleteBtn表示用td要素を生成
-// //     const removeBtnElement = document.createElement('td');
-// //     const removeBtn = createRrmoveBtn(taskId - 1);
-// //     removeBtnElement.appendChild(removeBtn);
-
-// //     //生成したtdをtrにセット
-// //     taskElement.appendChild(idElement);
-// //     taskElement.appendChild(commentElement);
-// //     taskElement.appendChild(statusBtnElement);
-// //     taskElement.appendChild(removeBtnElement);
-    
-// //     todoList.appendChild(taskElement);
-// //   });
-// // }
-
-//   // const tr = document.createElement('tr');
-//   // result.appendChild(tr);
-
-//   // const idTdIndex = document.createElement('td');
-//   // idTdIndex.textContent =  todos.length - 1;
-//   // tr.appendChild(idTdIndex);
-
-//   // const idTdTask = document.createElement('td');
-//   // idTdTask.textContent = todos[todos.length - 1];
-//   // tr.appendChild(idTdTask);
-
-//   // //ステータスボタンクリック動作
-//   // createStatusBtn(tr);
-
-//   // //削除ボタンクリック動作
-//   // const delBtn = createDeleteBtn();
-//   // tr.appendChild(delBtn);
-//   // delBtn.addEventListener('click',() => {
-//   //   delBtn.parentNode.textContent = ""
-//   // })
-// })
 
 // ラジオボタン選択
-const radioselect = () => {
-  const work = document.querySelectorAll('input[type="radio"]')[1].checked;
-  const comp = document.querySelectorAll('input[type="radio"]')[2].checked;
-  todos.forEach((todo) => {
+// const radioselect = () => {
+//   const work = document.querySelectorAll('input[type="radio"]')[1].checked;
+//   const comp = document.querySelectorAll('input[type="radio"]')[2].checked;
+//   delete filteredTodos;
 
-    if(work === true){
-      if(todo.status === '作業中'){
-        const filterTodo = {
-          index: todo.index,
-          value: todo.value, 
-          status: todo.status,
-        };
-        filteredTodos.push(filterTodo);
-        console.log(filteredTodos);
-      }
-
-      
-    }else if(comp === true){
-      //作業中を非表示
-      document.querySelectorAll('tr.trWrk').forEach(trWrk => {
-        trWrk.style.display = 'none';
-      })
-    }else{
-      //非表示を全て表示に
-      document.querySelectorAll('tr').forEach(trAll => {
-        trAll.style.display = ''
-      })
-    }
-  })
-}
+//todoをfiltertodoに格納
+  // todos.forEach((todo) => {
+  //   if(work === true){
+  //     if(todo.status === '作業中'){
+  //       const filterTodo = {
+  //         index: todo.index,
+  //         value: todo.value, 
+  //         status: todo.status,
+  //       };
+  //       filteredTodos.push(filterTodo);
+  //       console.log(filteredTodos);
+  //       displayTodos();
+  //     }
+  //   }else if(comp === true){
+  //     if(todo.status === '完了'){
+  //       const filterTodo = {
+  //         index: todo.index,
+  //         value: todo.value, 
+  //         status: todo.status,
+  //       };
+  //       console.log(filteredTodos);
+  //   }else{
+  //       const filterTodo = {
+  //         index: todo.index,
+  //         value: todo.value, 
+  //         status: todo.status,
+  //       };
+  //       filteredTodos.push(filterTodo);
+  //       console.log(filteredTodos);
+  //     }
+  //   } 
+  // });
+// }
