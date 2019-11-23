@@ -15,34 +15,21 @@ const createDeleteBtn = () => {
 }
 
 //ステータスボタン生成
-const createStatusBtn = (trElem)　=>　{
-  const idTdSta = document.createElement('td');
-  trElem.appendChild(idTdSta);
-  const idTdStaBtn = document.createElement('button');
-  idTdSta.appendChild(idTdStaBtn);
-  idTdStaBtn.textContent = '作業中'
-
-  idTdStaBtn.addEventListener('click',()=>{
-    if (idTdStaBtn.textContent === '作業中'){
-      idTdStaBtn.textContent = '完了'
-    }else{
-      idTdStaBtn.textContent = '作業中'
-    }
-  })
+const createStatusBtn = ()　=>　{
+  const StaBtn = document.createElement('button');
+  return StaBtn;
 };
-
 
 // クリックイベント
 action.addEventListener('click',() => {
   const todo = {
-    index: todos.length,
     value: inputTask.value, 
     status: '作業中'
   };
 
   todos.push(todo);
   inputTask.value = "";
-  console.log(todos);
+  radioselect();
   displayTodos();
 });
 
@@ -51,74 +38,93 @@ const displayTodos = () => {
   //初期化
   result.textContent = '';
 
-  todos.forEach((todo, index ) => {
+  filteredTodos.forEach((filteredTodo, index ) => {
     // todo表示ようのtr要素を生成
       const taskElement = document.createElement('tr');
       result.appendChild(taskElement);
 
       //ID表示ようのtd要素を生成
       const idElement = document.createElement('td');
-      const taskId = todo.index;
-      idElement.textContent = taskId;
+      idElement.textContent = index;
 
       //task表示用td要素を生成
       const commentElement = document.createElement('td');
-      commentElement.textContent = todo.value;
+      commentElement.textContent = filteredTodo.value;
 
+      //statusBtn表示用td要素を生成
+      const statusBtnElement = document.createElement('td')
+      const staBtn = createStatusBtn();
+      staBtn.textContent = filteredTodo.status;
+      statusBtnElement.appendChild(staBtn);
 
+      //statusボタンクリック
+      staBtn.addEventListener('click',()=>{
+        if (staBtn.textContent === '作業中'){
+          staBtn.textContent = '完了'
+          todos[index].status = '完了'
+        }else{
+          staBtn.textContent = '作業中'
+          todos[index].status = '作業中'
+        }
+      })
 
       //deleteBtn表示用td要素を生成
       const delBtn = createDeleteBtn();
-      
-      // delBtn.addEventListener('click',() => {
-      //   delBtn.parentNode.textContent = ""
-      // });
+
+      //deleteBtnクリック動作
+      delBtn.addEventListener('click',() => {
+        todos.splice(index, 1)
+        filteredTodos.splice(index, 1)
+        displayTodos();
+      });
 
       //生成したtdをtrにセット
       taskElement.appendChild(idElement);
       taskElement.appendChild(commentElement);
-      createStatusBtn(taskElement);
+      taskElement.appendChild(statusBtnElement);
       taskElement.appendChild(delBtn);
   });
+
 }
 
 
 // ラジオボタン選択
-// const radioselect = () => {
-//   const work = document.querySelectorAll('input[type="radio"]')[1].checked;
-//   const comp = document.querySelectorAll('input[type="radio"]')[2].checked;
-//   delete filteredTodos;
+const radioselect = () => {
+  const work = document.querySelectorAll('input[type="radio"]')[1].checked;
+  const comp = document.querySelectorAll('input[type="radio"]')[2].checked;
 
-//todoをfiltertodoに格納
-  // todos.forEach((todo) => {
-  //   if(work === true){
-  //     if(todo.status === '作業中'){
-  //       const filterTodo = {
-  //         index: todo.index,
-  //         value: todo.value, 
-  //         status: todo.status,
-  //       };
-  //       filteredTodos.push(filterTodo);
-  //       console.log(filteredTodos);
-  //       displayTodos();
-  //     }
-  //   }else if(comp === true){
-  //     if(todo.status === '完了'){
-  //       const filterTodo = {
-  //         index: todo.index,
-  //         value: todo.value, 
-  //         status: todo.status,
-  //       };
-  //       console.log(filteredTodos);
-  //   }else{
-  //       const filterTodo = {
-  //         index: todo.index,
-  //         value: todo.value, 
-  //         status: todo.status,
-  //       };
-  //       filteredTodos.push(filterTodo);
-  //       console.log(filteredTodos);
-  //     }
-  //   } 
-  // });
-// }
+  //filteredTodos配列の初期化
+  while((i = filteredTodos.shift()) !== undefined){
+  }
+
+// todoをfiltertodoに格納
+  todos.forEach((todo) => {
+    if(work === true){
+      if(todo.status === '作業中'){
+        const filterTodo = {
+          value: todo.value, 
+          status: todo.status,
+        };
+        filteredTodos.push(filterTodo);
+        displayTodos();
+      }
+    }else if(comp === true){
+      if(todo.status === '完了'){
+        const filterTodo = {
+          value: todo.value, 
+          status: todo.status,
+        };
+        filteredTodos.push(filterTodo);
+        displayTodos();
+      }
+    }else{
+        const filterTodo = {
+          value: todo.value, 
+          status: todo.status,
+        };
+        filteredTodos.push(filterTodo);
+        displayTodos();
+    }
+     
+  });
+}
